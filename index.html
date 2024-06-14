@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starry Night with UFO</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+            background: black;
+        }
+
+        .star-field {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            background: white;
+            opacity: 0.8;
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+            animation: twinkle 2s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .ufo {
+            position: absolute;
+            width: 80px;
+            height: 40px;
+            background: radial-gradient(circle at 50% 50%, gray, darkgray);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+        }
+
+        .ufo::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 20px;
+            width: 40px;
+            height: 15px;
+            background: radial-gradient(circle at 50% 50%, gray, darkgray);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+        }
+
+        @keyframes ellipticalOrbit {
+            from {
+                transform: rotate(0deg) translateX(300px) rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg) translateX(300px) rotate(-360deg);
+            }
+        }
+
+        .ufo-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            transform: translate(-50%, -50%);
+            animation: ellipticalOrbit 15s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="star-field" id="star-field"></div>
+    <div class="ufo-container">
+        <div class="ufo"></div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const starField = document.getElementById('star-field');
+            const starCount = 1000;
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.width = `${Math.random() * 2}px`;
+                star.style.height = star.style.width;
+                star.style.top = `${Math.random() * window.innerHeight}px`;
+                star.style.left = `${Math.random() * window.innerWidth}px`;
+                star.style.animationDuration = `${2 + Math.random() * 3}s`;
+                starField.appendChild(star);
+            }
+        });
+    </script>
+</body>
+</html>
